@@ -11,6 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application files
 COPY ./app ./app
 
+VOLUME ["/code"]
+
 # Specify the entry point for the application
 CMD ["python", "app/main.py"]
 
