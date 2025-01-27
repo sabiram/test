@@ -13,6 +13,8 @@ COPY ./app ./app
 
 VOLUME ["/code"]
 
+EXPOSE 8080
+
 # Specify the entry point for the application
 CMD ["python", "app/main.py"]
 
