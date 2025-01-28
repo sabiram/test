@@ -17,15 +17,15 @@ jobs:
       run: echo "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}" | docker login registry.digitalocean.com -u doctl --password-stdin
 
     - name: Build Docker image
-      run: docker build -t registry.digitalocean.com/my-registry/my-python-app:latest .
+      run: docker build -t registry.digitalocean.com/my-registry-test/my-python-app:v1.0.0 .
 
     - name: Push Docker image to registry
-      run: docker push registry.digitalocean.com/my-registry/my-python-app:latest
+      run: docker push registry.digitalocean.com/my-registry-test/my-python-app:v1.0.0
 
         #- name: Deploy to Kubernetes
         #env:
         #KUBECONFIG: ${{ secrets.KUBECONFIG }}
         #run: |
-        #kubectl set image deployment/my-app-deployment my-app-container=registry.digitalocean.com/my-registry/my-python-app:latest
+        #kubectl set image deployment/my-app-deployment my-app-container=registry.digitalocean.com/my-registry-test/my-python-app:v1.0.0
         #kubectl rollout restart deployment/my-app-deployment
 
