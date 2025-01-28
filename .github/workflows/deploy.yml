@@ -1,0 +1,31 @@
+name: Deploy to DigitalOcean Kubernetes
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Log in to DigitalOcean Container Registry
+      run: echo "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}" | docker login registry.digitalocean.com -u doctl --password-stdin
+
+    - name: Build Docker image
+      run: docker build -t registry.digitalocean.com/my-registry/my-python-app:latest .
+
+    - name: Push Docker image to registry
+      run: docker push registry.digitalocean.com/my-registry/my-python-app:latest
+
+        #- name: Deploy to Kubernetes
+        #env:
+        #KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        #run: |
+        #kubectl set image deployment/my-app-deployment my-app-container=registry.digitalocean.com/my-registry/my-python-app:latest
+        #kubectl rollout restart deployment/my-app-deployment
+
