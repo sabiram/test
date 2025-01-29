@@ -21,6 +21,3 @@ jobs:
 
     - name: Push Docker image to registry
       run: docker push registry.digitalocean.com/quix360-saas-api-repo-test/quix360-saas-api:v1.0
-
-    - name: Output Image Tag
-      run: echo "Pushed Image: registry.digitalocean.com/quix360-saas-api-repo-test/quix360-saas-api:v1.0"
