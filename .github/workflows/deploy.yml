@@ -13,19 +13,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Set dynamic image tag
+      run: echo "IMAGE_TAG=quix360_saas_api_$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+
     - name: Log in to DigitalOcean Container Registry
       run: echo "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}" | docker login registry.digitalocean.com -u doctl --password-stdin
 
     - name: Build Docker image
-      run: docker build -t registry.digitalocean.com/my-registry-test/my-python-app:v1.0.0 .
+      run: docker build -t registry.digitalocean.com/quix360-saas-api-repo-test/quix360-saas-api:${{ env.IMAGE_TAG }} .
 
     - name: Push Docker image to registry
-      run: docker push registry.digitalocean.com/my-registry-test/my-python-app:v1.0.0
+      run: docker push registry.digitalocean.com/quix360-saas-api-repo-test/quix360-saas-api:${{ env.IMAGE_TAG }}
 
-        #- name: Deploy to Kubernetes
-        #env:
-        #KUBECONFIG: ${{ secrets.KUBECONFIG }}
-        #run: |
-        #kubectl set image deployment/my-app-deployment my-app-container=registry.digitalocean.com/my-registry-test/my-python-app:v1.0.0
-        #kubectl rollout restart deployment/my-app-deployment
-
+    - name: Output Image Tag
+      run: echo "Pushed Image: registry.digitalocean.com/quix360-saas-api-repo-test/quix360-saas-api:${{ env.IMAGE_TAG }}"
