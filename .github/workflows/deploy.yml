@@ -18,9 +18,9 @@ jobs:
       
     - name: Install doctl
       run: sudo snap install doctl
-      
-    - name: initialize auth token
-      run: doctl auth init
+
+    - name: Authenticate with DigitalOcean
+      run: doctl auth init --access-token "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}"
 
     - name: Log in to DigitalOcean Container Registry
       run: echo "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}" | docker login registry.digitalocean.com -u doctl --password-stdin
