@@ -1,5 +1,5 @@
 def main():
-    print("Hello, Dockerized Python World!")
+    print("Hello, welcome to the Dockerized Python World!")
 
 if __name__ == "__main__":
     main()
